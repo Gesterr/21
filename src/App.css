@@ -1,0 +1,35 @@
+.tabel{
+    width: auto;
+    height: 75px;
+    display: flex;
+}
+
+.Card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 75px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-right: 1rem;
+}
+
+.crest{
+    background-color: red;
+}
+
+.piki{
+    background-color: black;
+    color: white;
+}
+
+.chervi{
+    background-color: #610a0a;
+    color: white;
+}
+
+.bybny{
+    background-color: #292828;
+    color: white;
+}
