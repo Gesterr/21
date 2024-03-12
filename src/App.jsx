@@ -1,7 +1,11 @@
 import { useState } from 'react'
 import './App.css'
+import Player from './components/Player';
+import Enemy from './components/Enemy';
 
 function App() {
+
+  let[winLose, setWinLose] = useState(false)
 
   let [randomBot, setRandomBot] = useState((Math.random() * (21 - 17) + 17).toFixed(0))
   let [tabel,setTabel] = useState([]);
@@ -54,7 +58,7 @@ function App() {
     setScore((oldScore) => Number([oldScore + rlyNewScore]))
     // Если число больше 21, то ты проиграл
     if( score > 21){
-      alert('Вы проиграли');
+      setWinLose('Вы проиграли');
       setTabel([]);
       setScore(0);
       setEnemyTabel([]);
@@ -76,22 +80,20 @@ function App() {
 // Эта функция срабатывает только при нажатии кнопки PASS и проверяет очки между игроком и ботом.
 // Взависимости от результата появляются разные Alert
   function goToBase(){
-
     if(enemyscore <= randomBot){
-      console.log(randomBot)
       botAction()
     } else if(enemyscore > 21){
-      alert('Вы выйграли');
+      setWinLose('Вы выйграли');
       fuckGoBack();
     } else{
       if(score > enemyscore){
-        alert('Вы выйграли');
+        setWinLose('Вы выйграли');
         fuckGoBack();
       } else if(enemyscore > score){
-        alert('Бот выйграл');
+        setWinLose('Бот выйграл');
         fuckGoBack();
       } else if(enemyscore === score){
-        alert('Ничья');
+        setWinLose('Ничья');
         fuckGoBack();
       }
     }
@@ -116,6 +118,7 @@ function App() {
 
 // Просто функция, которая отвечает за действия бота, они аналогичны игроку
   function botAction(){
+
     let minusCard = cards[Math.floor(Math.random() * cards.length)]
     setEnemyTabel((oldTabel) => [...oldTabel, 
       minusCard 
@@ -140,43 +143,34 @@ function App() {
         rlyNewScore = 4;
         break;
     }
-    rlyNewScore = Number(rlyNewScore)
-    setEnemyScore((oldScore) => Number([oldScore + rlyNewScore]))
+    rlyNewScore = Number(rlyNewScore);
+    setEnemyScore((oldScore) => Number([oldScore + rlyNewScore]));
   }
 
-  function checkMasti(Masty){
-    if (Masty === 'П'){ return 'piki'}
-    else if (Masty === 'К'){ return 'crest'}
-    else if (Masty === 'Ч'){ return 'chervi'}
-    else if (Masty === 'Б'){ return 'bybny'}
-  }
 
   return (
     <>
-     <div className="container">
-      <div className='tabel' htmlFor="">
-      {
-      tabel.map((tabel) => 
-        <div className={'Card ' + checkMasti(tabel[0])} key={tabel}>{tabel[1] + tabel[2]}
-        </div>
-      )
-      }
+     <div className="container playerField">
+      <div className='popUp' style={{opacity: winLose ? 1 : 0, top: winLose ? '50%' : '0%'}} onClick={() => setWinLose(false)}>{winLose}</div>
+      <Player tabel={tabel} />
+
+      <label htmlFor=""> Счёт очков: {score}</label>
+      <div className="buttons">
+        <button 
+        className={score > 21 ? 'btn btn-danger button' : 'btn btn-success button'} 
+        onClick={() => putCardOnTabel()} 
+        disabled={enemyscore >21 ? true : false}
+        >{score > 21 ? 'Проигрыш' : 'Взять карту'}</button>
+
+        <button 
+        className={enemyscore > 21 ? 'btn btn-success' : 'btn btn-danger'}
+        disabled={score >21 ? true : false} 
+        onClick={() => goToBase()}
+        
+        >{enemyscore > 21 ? 'Победа' : 'Пропустить ход'}</button>
       </div>
-      <br />
-      <button onClick={() => putCardOnTabel()}>{score > 21 ? 'Проигрышь' : 'Взять карту'}</button>
-      <button disabled={score >21 ? true : false} onClick={() => goToBase()}>Пропустить ход</button>
-      <br />
-      <label htmlFor=""> Счёт очков: {score}</label><br />
-      <div className='tabel' htmlFor="">
-      {
-      enemyTabel.map((tabel) => 
-        <div className={'Card ' + checkMasti(tabel[0])} key={tabel}>{tabel[1] + tabel[2]}
-        </div>
-      )
-      }
-      </div>
-      <br />
       <label htmlFor=""> Счёт очков противника: {enemyscore}</label>
+      <Enemy enemyTabel={enemyTabel} tabel={console.log(tabel)}/>
      </div>
     </>
   )
