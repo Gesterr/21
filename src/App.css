@@ -25,13 +25,14 @@ body{
 }
 
 .Card{
+    animation: card-animation 0.5s ease; 
     display: flex;
     justify-content: center;
     align-items: center;
     width: 150px;
     height: 225px;
     border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 10px;
     margin-right: 1rem;
     font-size: 50px;
 }
@@ -53,6 +54,8 @@ body{
     height: 225px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -61,33 +64,9 @@ body{
     height: 225px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
-
-
-
-.crest{
-    animation: card-animation 0.5s ease; 
-    background-color: red;
-}
-
-.piki{
-    animation: card-animation 0.5s ease;
-    background-color: black;
-    color: white;
-}
-
-.chervi{
-    animation: card-animation 0.5s ease;
-    background-image:url('/213.jpg');
-    color: white;
-}
-
-.bybny{
-    animation: card-animation 0.5s ease;
-    background-color: #292828;
-    color: white;
-}
-
 
 
 button{

@@ -170,7 +170,7 @@ function App() {
         >{enemyscore > 21 ? 'Победа' : 'Пропустить ход'}</button>
       </div>
       <label htmlFor=""> Счёт очков противника: {enemyscore}</label>
-      <Enemy enemyTabel={enemyTabel} tabel={console.log(tabel)}/>
+      <Enemy enemyTabel={enemyTabel}/>
      </div>
     </>
   )

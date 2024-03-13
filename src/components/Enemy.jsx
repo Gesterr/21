@@ -1,4 +1,4 @@
-export default function Enemy({enemyTabel},tabel) {
+export default function Enemy({enemyTabel}) {
    function checkMasti(Masty){
         if (Masty === 'П'){ return'piki'}
         else if (Masty === 'К'){  return 'crest'}
@@ -6,7 +6,10 @@ export default function Enemy({enemyTabel},tabel) {
         else if (Masty === 'Б'){ return'bybny'}
         
     }   
-
+    function bgCard(tabel){
+      let check = 'url(/cards/' + tabel.trim() + '.png)';
+      return check;
+    }
     
 
 
@@ -15,7 +18,12 @@ export default function Enemy({enemyTabel},tabel) {
     <div className='Enemytabel' htmlFor="">
       {
       enemyTabel.map((tabel) => 
-        <div className={'Card ' + checkMasti(tabel[0])} key={tabel} id={tabel} tabel={tabel}>{tabel[1] + tabel[2]}
+        <div style={{background:bgCard(tabel),
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%',}}
+        className={'Card'}
+         key={tabel} id={tabel}>
+          
         </div>
       )
       }
